@@ -40,9 +40,23 @@ function direccion (nuevaDireccion){
 
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
-function chequearSiGano() {
-    //COMPLETAR
+function chequearSiGano(nueva, grilla) {
+  for(var i = 0; i < nueva.length; i++){
+    for(var j = 0; j < nueva[i].length && nueva[i][j] == grilla[i][j]; j++){
+      console.log(nueva[i][j] + " es igual a lo que hay en la grilla: " + grilla[i][j])
+    }
+  }
+  /* if (nueva){
+    console.log("Gano");
+  } else {
+    console.log("Perdió");
+  } */
 }
+chequearSiGano(nueva, grilla);
+
+
+
+
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
