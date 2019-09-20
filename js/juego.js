@@ -40,17 +40,49 @@ function direccion (nuevaDireccion){
 
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
-function chequearSiGano(nueva, grilla) {
-  for(var i = 0; i < nueva.length; i++){
-    for(var j = 0; j < nueva[i].length && nueva[i][j] == grilla[i][j]; j++){
-      console.log(nueva[i][j] + " es igual a lo que hay en la grilla: " + grilla[i][j])
+function recorrerSimple(nombreArray) {
+  for(var i = 0; i < nombreArray.length; i++){
+    return nombreArray[i];
+  }
+}
+function recorrerDoble(nombreArray) {
+  for(var i = 0; i < nombreArray.length; i++){
+    for(var j = 0; j < nueva[i].length; j++){
+      return nombreArray[i][j];
+      // No puede ser un return porque sino se corta el bucle, tengo que solucionar de otro modo
     }
   }
-  /* if (nueva){
-    console.log("Gano");
+}
+function comparar(a, b){
+  if(a == b){
+    return true;
   } else {
-    console.log("Perdió");
-  } */
+    return false;
+  }
+}
+
+/* con la Grilla del tp y
+var nueva = [
+    [2, 1, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+comparar me da true, ¿por qué? */
+
+comparar(recorrerDoble(grilla), recorrerDoble(nueva));
+
+// Funciona pero si no hay correlatividad, no consologuea esos numeros, pero no me tira error
+// hay que arreglar.
+function chequearSiGano(nueva, grilla) {
+  for(var i = 0; i < nueva.length; i++){
+    if (nueva[i][j] == grilla[i][j]){
+      for(var j = 0; j < nueva[i].length && nueva[i][j] == grilla[i][j]; j++){
+        console.log(nueva[i][j] + " es igual a lo que hay en la grilla: " + grilla[i][j])
+      }
+    } else {
+      console.log("Error")
+    }
+  }
 }
 chequearSiGano(nueva, grilla);
 
@@ -60,7 +92,7 @@ chequearSiGano(nueva, grilla);
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
-    //COMPLETAR
+    alert("Felicitaciones, ganaste");
 }
 
 /* Función que intercambia dos posiciones en la grilla.

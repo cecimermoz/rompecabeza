@@ -1,0 +1,4 @@
+1 - recorrer la grilla ganadora
+2 - recorrer la grilla nueva
+3 - comparar posiciones entre una y otra
+4 - mostrar cartel sólo si coinciden (if, sin else)
