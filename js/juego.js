@@ -9,22 +9,13 @@ var movimientos = [];
 
 // Representación de la grilla. Cada número representa a una pieza.
 // El 9 es la posición vacía
+
 var grilla = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9]
 ];
 
-// ESTA ES LA QUE DEBE SER MODIFICADA
-
-var auxiliar = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-];
-
-/* Estas dos variables son para guardar la posición de la pieza vacía. 
-Esta posición comienza siendo la [2, 2]*/
 var filaVacia = 2;
 var columnaVacia = 2;
 
@@ -38,22 +29,21 @@ function mostrarInstrucciones(instrucciones) {
   }
 }
 
-/* COMPLETAR: Crear función que agregue la última dirección al arreglo de movimientos
-y utilice actualizarUltimoMovimiento para mostrarlo en pantalla */
-
-function direccion (nuevaDireccion){
+function mostrarDireccion(nuevaDireccion){
   movimientos.push(nuevaDireccion);
   actualizarUltimoMovimiento(nuevaDireccion);
 }
 
-/* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
-Existen diferentes formas de hacer este chequeo a partir de la grilla. */
-
 function chequearSiGano() {
   var bool = true;
+  var ganadora = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
   for(var i = 0; i < grilla.length; i++){
     for(var j = 0;j < grilla[i].length; j++){
-      if(!grilla[i][j]){
+      if(grilla[i][j] !== ganadora[i][j]){
         bool = false;
       }
     }
@@ -61,25 +51,12 @@ function chequearSiGano() {
   return bool;
 }
 
-// Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
   if(chequearSiGano()){
     alert("Felicitaciones, ganaste weon");
   }
 }
-mostrarCartelGanador();
 
-/* Función que intercambia dos posiciones en la grilla.
-Pensar como intercambiar dos posiciones en un arreglo de arreglos. 
-Para que tengas en cuenta:
-Si queremos intercambiar las posiciones [1,2] con la [0, 0], si hacemos: 
-arreglo[1][2] = arreglo[0][0];
-arreglo[0][0] = arreglo[1][2];
-
-En vez de intercambiar esos valores vamos a terminar teniendo
-en ambas posiciones el mismo valor.
-Se te ocurre cómo solucionar esto con una variable temporal?
-*/
 function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPos2) {
     var aux = grilla[filaPos1][columnaPos1];
     grilla[filaPos1][columnaPos1] = grilla[filaPos2][columnaPos2];
@@ -88,17 +65,22 @@ function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPo
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
-    //COMPLETAR
+  filaVacia = nuevaFila;
+  columnaVacia = nuevaColumna;
 }
-
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna) {
-    //COMPLETAR
+  var bool = true;
+  if(fila > 2 || fila < 0 || columna > 2 || columna < 0){
+    bool = false;
+  }
+  return bool;
 }
 
-/* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
-Las direcciones están dadas por números que representa: arriba (38), abajo (40), izquierda (37), derecha (39) */
+/* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando
+su posición con otro elemento. Las direcciones están dadas por números que
+representa: arriba (38), abajo (40), izquierda (37), derecha (39) */
 function moverEnDireccion(direccion) {
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
@@ -117,38 +99,27 @@ function moverEnDireccion(direccion) {
     
   // Mueve pieza hacia la derecha, reemplazandola con la blanca
   else if (direccion === codigosDireccion.DERECHA) {
-    //COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia - 1;
   }
     
   // Mueve pieza hacia la izquierda, reemplazandola con la blanca
   else if (direccion === codigosDireccion.IZQUIERDA) {
-    // COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia + 1;
   }
 
-  /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
-  Para que esta parte del código funcione correctamente deberás haber implementado 
-  las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
-
-    if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
-        intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-        actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-
-  //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
-
-    }
+  if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
+      intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      mostrarDireccion(direccion);
+  }
 }
-
 
 //////////////////////////////////////////////////////////
 ////////A CONTINUACIÓN FUNCIONES YA IMPLEMENTADAS.////////
 /////////NO TOCAR A MENOS QUE SEPAS LO QUE HACES//////////
 //////////////////////////////////////////////////////////
-
-/* Las funciones y variables que se encuentran a continuación ya están implementadas.
-No hace falta que entiendas exactamente que es lo que hacen, ya que contienen
-temas aún no vistos. De todas formas, cada una de ellas tiene un comentario
-para que sepas que se está haciendo a grandes rasgos. NO LAS MODIFIQUES a menos que
-entiendas perfectamente lo que estás haciendo! */
 
 /* codigosDireccion es un objeto que te permite reemplazar
 el uso de números confusos en tu código. Para referirte a la dir
