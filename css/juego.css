@@ -6,7 +6,7 @@
 }
 body {
   font-family: Arial, sans-serif;
-  width: 940px;
+  /*width: 940px;*/
   margin: 5% auto;
   min-height: 100%;
   background-image: url(../images/adventure.jpg);
