@@ -1,7 +1,7 @@
 // Arreglo que contiene las intrucciones del juego 
 var instrucciones = [
-  "Con las flechas del tablero, mové las piezas hasta formar la figura",
-  "Si querés reiniciar, refrescá la página (¡Help! -> F5)",
+  "Con las flechas de tu teclado mové las piezas hasta formar la figura correctamente",
+  "Para reiniciar simplemente actualizá el navegador (¡Help! -> F5)",
   "Para obtener pistas, practicá con el cubo mágico"
 ];
 // Arreglo para ir guardando los movimientos que se vayan realizando
